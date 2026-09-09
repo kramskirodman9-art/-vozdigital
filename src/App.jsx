@@ -22,6 +22,7 @@ import StudyGuide from "./pages/StudyGuide";
 import PhotoContest from "./pages/PhotoContest";
 import Newsletter from "./pages/Newsletter";
 import TeacherMessages from "./components/TeacherMessages";
+import TeacherDashboard from "./pages/TeacherDashboard";
 import { recordVisit } from "./pages/Stats";
 import "./styles/newspaper.css";
 
@@ -56,6 +57,7 @@ function App() {
               <Route path="/concurso-de-fotos" element={<PhotoContest />} />
               <Route path="/newsletter" element={<Newsletter />} />
               <Route path="/avisos-maestros" element={<TeacherMessages />} />
+              <Route path="/maestro" element={<TeacherDashboard />} />
             </Routes>
             <Footer />
           </div>

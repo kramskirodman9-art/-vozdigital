@@ -3104,3 +3104,451 @@ a { color: inherit; text-decoration: none; }
   .gallery-grid { grid-template-columns: 1fr; }
   .puzzle-input-row { flex-direction: column; }
 }
+
+/* ===== TEACHER DASHBOARD ===== */
+.teacher-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  padding: 1.2rem;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.stat-number {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--green-600);
+  font-family: var(--serif);
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--gray-500);
+  margin-top: 0.3rem;
+}
+
+.teacher-tabs {
+  display: flex;
+  gap: 0.5rem;
+  border-bottom: 2px solid var(--gray-200);
+  margin-bottom: 1.5rem;
+  overflow-x: auto;
+}
+
+.teacher-tab {
+  padding: 0.8rem 1.2rem;
+  border: none;
+  background: none;
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  color: var(--gray-500);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.teacher-tab:hover {
+  color: var(--green-600);
+}
+
+.teacher-tab.active {
+  color: var(--green-700);
+  border-bottom-color: var(--green-600);
+  font-weight: 600;
+}
+
+.tab-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--green-600);
+  color: var(--white);
+  font-size: 0.7rem;
+  font-weight: 700;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 9px;
+  margin-left: 0.4rem;
+  padding: 0 5px;
+}
+
+.teacher-tab-content {
+  min-height: 400px;
+}
+
+.teacher-section h2 {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  color: var(--gray-800);
+  margin-bottom: 1rem;
+}
+
+.section-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.filter-buttons button {
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-sm);
+  background: var(--white);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-buttons button.active {
+  background: var(--green-600);
+  color: var(--white);
+  border-color: var(--green-600);
+}
+
+.filter-buttons button:hover:not(.active) {
+  border-color: var(--green-400);
+}
+
+/* Student Messages */
+.student-message-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  padding: 1.2rem;
+  margin-bottom: 1rem;
+  transition: box-shadow 0.2s;
+}
+
+.student-message-card.unread {
+  border-left: 4px solid var(--green-500);
+  background: var(--green-50);
+}
+
+.student-message-card:hover {
+  box-shadow: var(--shadow-sm);
+}
+
+.msg-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+.msg-student {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.student-avatar {
+  font-size: 1.5rem;
+}
+
+.msg-folio {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--gray-400);
+}
+
+.msg-date {
+  font-size: 0.8rem;
+  color: var(--gray-400);
+}
+
+.msg-text {
+  font-size: 0.95rem;
+  color: var(--gray-700);
+  line-height: 1.5;
+  margin-bottom: 0.8rem;
+}
+
+.msg-responses {
+  border-top: 1px solid var(--gray-100);
+  padding-top: 0.8rem;
+  margin-top: 0.8rem;
+}
+
+.response-item {
+  background: var(--green-50);
+  border-radius: var(--radius-sm);
+  padding: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+.response-item strong {
+  font-size: 0.8rem;
+  color: var(--green-700);
+}
+
+.response-item p {
+  font-size: 0.9rem;
+  color: var(--gray-700);
+  margin: 0.3rem 0 0;
+}
+
+.msg-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-reply {
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--green-500);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--green-600);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-reply:hover {
+  background: var(--green-500);
+  color: var(--white);
+}
+
+.reply-form {
+  width: 100%;
+}
+
+.reply-form textarea {
+  width: 100%;
+  padding: 0.7rem;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-sm);
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  resize: vertical;
+}
+
+.reply-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  justify-content: flex-end;
+}
+
+.btn-sm {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.8rem;
+}
+
+.btn-secondary {
+  background: var(--gray-200);
+  color: var(--gray-700);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+/* Add Form */
+.add-form {
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  padding: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.add-form input,
+.add-form textarea,
+.add-form select {
+  width: 100%;
+  padding: 0.7rem;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-sm);
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  margin-bottom: 0.8rem;
+}
+
+.add-form select {
+  width: auto;
+}
+
+.form-row {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+/* Documents Grid */
+.docs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.doc-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  transition: box-shadow 0.2s;
+  position: relative;
+}
+
+.doc-card:hover {
+  box-shadow: var(--shadow-sm);
+}
+
+.doc-icon {
+  font-size: 2rem;
+}
+
+.doc-info {
+  flex: 1;
+}
+
+.doc-info strong {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--gray-800);
+  margin-bottom: 0.3rem;
+}
+
+.doc-info p {
+  font-size: 0.8rem;
+  color: var(--gray-500);
+  margin: 0 0 0.3rem;
+}
+
+.doc-date {
+  font-size: 0.75rem;
+  color: var(--gray-400);
+}
+
+.btn-delete {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: var(--gray-100);
+  color: var(--gray-400);
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.btn-delete:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* Chat */
+.chat-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-container {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.chat-messages {
+  height: 400px;
+  overflow-y: auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.chat-msg {
+  max-width: 75%;
+  padding: 0.8rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+}
+
+.chat-msg.own {
+  align-self: flex-end;
+  background: var(--green-600);
+  color: var(--white);
+  border-bottom-right-radius: 4px;
+}
+
+.chat-msg.other {
+  align-self: flex-start;
+  background: var(--gray-100);
+  color: var(--gray-800);
+  border-bottom-left-radius: 4px;
+}
+
+.chat-msg-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.3rem;
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+.chat-msg p {
+  margin: 0;
+  line-height: 1.4;
+}
+
+.chat-input {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.8rem;
+  border-top: 1px solid var(--gray-200);
+  background: var(--gray-50);
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 0.7rem;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-sm);
+  font-family: var(--sans);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .teacher-stats { grid-template-columns: repeat(2, 1fr); }
+  .teacher-tabs { flex-wrap: nowrap; overflow-x: auto; }
+  .teacher-tab { font-size: 0.8rem; padding: 0.6rem 0.8rem; }
+  .section-controls { flex-direction: column; align-items: flex-start; }
+  .docs-grid { grid-template-columns: 1fr; }
+  .chat-messages { height: 300px; }
+}

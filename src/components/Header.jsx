@@ -108,6 +108,7 @@ export default function Header() {
             </div>
           </li>
           {isAdmin && <li><Link to="/admin" className="nav-admin" onClick={() => setMenuOpen(false)}>⚙️ Admin</Link></li>}
+          {isTeacherLogged && <li><Link to="/maestro" className="nav-admin" onClick={() => setMenuOpen(false)}>👩‍🏫 Mi Panel</Link></li>}
         </ul>
 
         <div className="auth-section">

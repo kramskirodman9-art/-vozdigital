@@ -92,22 +92,20 @@ export default function Header() {
             <button className="nav-dropdown-toggle" onClick={() => setMoreOpen(!moreOpen)}>
               Más ▾
             </button>
-            {moreOpen && (
-              <div className="nav-dropdown-menu">
-                <Link to="/programas" onClick={() => { setMoreOpen(false); setMenuOpen(false); }}>🎭 Programas</Link>
-                <Link to="/historial" onClick={() => { setMoreOpen(false); setMenuOpen(false); }}>📚 Historial</Link>
-                <Link to="/encuestas" onClick={() => { setMoreOpen(false); setMenuOpen(false); }}>📊 Encuestas</Link>
-                <Link to="/meritos" onClick={() => { setMoreOpen(false); setMenuOpen(false); }}>🏆 Méritos</Link>
-                <Link to="/calendario" onClick={() => { setMoreOpen(false); setMenuOpen(false); }}>📅 Calendario</Link>
-                <Link to="/reto-del-dia" onClick={() => { setMoreOpen(false); setMenuOpen(false); }}>🎯 Reto del Día</Link>
-                <Link to="/guia-de-estudios" onClick={() => { setMoreOpen(false); setMenuOpen(false); }}>📖 Guía de Estudios</Link>
-                <Link to="/concurso-de-fotos" onClick={() => { setMoreOpen(false); setMenuOpen(false); }}>🏆 Concurso Fotos</Link>
-                <Link to="/newsletter" onClick={() => { setMoreOpen(false); setMenuOpen(false); }}>📰 Newsletter</Link>
-                <Link to="/chat" onClick={() => { setMoreOpen(false); setMenuOpen(false); }}>💬 Chat</Link>
-                <Link to="/avisos-maestros" onClick={() => { setMoreOpen(false); setMenuOpen(false); }}>📢 Avisos Maestros</Link>
-                <Link to="/pregunta-al-director" onClick={() => { setMoreOpen(false); setMenuOpen(false); }}>❓ Pregúntale</Link>
-              </div>
-            )}
+            <div className={`nav-dropdown-menu${moreOpen ? " open" : ""}`}>
+              <Link to="/programas" onClick={() => { setMoreOpen(false); setMenuOpen(false); }}>🎭 Programas</Link>
+              <Link to="/historial" onClick={() => { setMoreOpen(false); setMenuOpen(false); }}>📚 Historial</Link>
+              <Link to="/encuestas" onClick={() => { setMoreOpen(false); setMenuOpen(false); }}>📊 Encuestas</Link>
+              <Link to="/meritos" onClick={() => { setMoreOpen(false); setMenuOpen(false); }}>🏆 Méritos</Link>
+              <Link to="/calendario" onClick={() => { setMoreOpen(false); setMenuOpen(false); }}>📅 Calendario</Link>
+              <Link to="/reto-del-dia" onClick={() => { setMoreOpen(false); setMenuOpen(false); }}>🎯 Reto del Día</Link>
+              <Link to="/guia-de-estudios" onClick={() => { setMoreOpen(false); setMenuOpen(false); }}>📖 Guía de Estudios</Link>
+              <Link to="/concurso-de-fotos" onClick={() => { setMoreOpen(false); setMenuOpen(false); }}>🏆 Concurso Fotos</Link>
+              <Link to="/newsletter" onClick={() => { setMoreOpen(false); setMenuOpen(false); }}>📰 Newsletter</Link>
+              <Link to="/chat" onClick={() => { setMoreOpen(false); setMenuOpen(false); }}>💬 Chat</Link>
+              <Link to="/avisos-maestros" onClick={() => { setMoreOpen(false); setMenuOpen(false); }}>📢 Avisos Maestros</Link>
+              <Link to="/pregunta-al-director" onClick={() => { setMoreOpen(false); setMenuOpen(false); }}>❓ Pregúntale</Link>
+            </div>
           </li>
           {isAdmin && <li><Link to="/admin" className="nav-admin" onClick={() => setMenuOpen(false)}>⚙️ Admin</Link></li>}
         </ul>

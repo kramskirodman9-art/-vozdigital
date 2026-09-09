@@ -9,10 +9,24 @@ export function useTeacher() {
 const TEACHERS_KEY = "vozdigital_teachers";
 const TEACHER_SESSION = "vozdigital_teacher_session";
 
+const DEFAULT_TEACHERS = [
+  { id: "default-1", name: "Rodman Kramski", password: "1234", createdAt: "2025-01-01T00:00:00.000Z" },
+  { id: "default-2", name: "Mtra. Patricia Vega", password: "1234", createdAt: "2025-01-01T00:00:00.000Z" },
+  { id: "default-3", name: "Prof. Alejandro Díaz", password: "1234", createdAt: "2025-01-01T00:00:00.000Z" },
+];
+
 function getTeachers() {
   try {
-    return JSON.parse(localStorage.getItem(TEACHERS_KEY)) || [];
-  } catch { return []; }
+    const stored = JSON.parse(localStorage.getItem(TEACHERS_KEY)) || [];
+    const allNames = new Set(stored.map(t => t.name));
+    const defaultsToAdd = DEFAULT_TEACHERS.filter(t => !allNames.has(t.name));
+    if (defaultsToAdd.length > 0) {
+      const merged = [...stored, ...defaultsToAdd];
+      localStorage.setItem(TEACHERS_KEY, JSON.stringify(merged));
+      return merged;
+    }
+    return stored;
+  } catch { return [...DEFAULT_TEACHERS]; }
 }
 
 function saveTeachers(teachers) {

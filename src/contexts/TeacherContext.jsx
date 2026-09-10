@@ -12,6 +12,7 @@ const TEACHER_MESSAGES_KEY = "vozdigital_teacher_messages";
 const TEACHER_RESPONSES_KEY = "vozdigital_teacher_responses";
 const TEACHER_DOCS_KEY = "vozdigital_teacher_docs";
 const TEACHER_CHAT_KEY = "vozdigital_teacher_chat";
+const TEACHER_ANNOUNCEMENTS_KEY = "vozdigital_teacher_announcements";
 
 const DEFAULT_TEACHERS = [
   { id: "default-1", name: "Rodman Kramski", password: "1234", createdAt: "2025-01-01T00:00:00.000Z" },
@@ -22,6 +23,7 @@ const DEFAULT_TEACHERS = [
 const DEFAULT_MESSAGES = [
   { id: "tm1", teacherId: "default-2", teacher: "Mtra. Patricia Vega", text: "Recordatorio: El proyecto de ciencias se entrega el viernes 12 de septiembre.", priority: "normal", createdAt: "2026-09-01" },
   { id: "tm2", teacherId: "default-3", teacher: "Prof. Alejandro Díaz", text: "Reunión de padres de familia el próximo lunes a las 5pm.", priority: "urgente", createdAt: "2026-09-03" },
+  { id: "tm3", teacherId: "default-1", teacher: "Rodman Kramski", text: "Bienvenidos al nuevo ciclo escolar. Revisen el calendario de actividades.", priority: "normal", createdAt: "2026-09-01" },
 ];
 
 const DEFAULT_STUDENT_MESSAGES = [
@@ -88,7 +90,13 @@ export function TeacherProvider({ children }) {
       } catch { /* empty */ }
     }
     setLoading(false);
-  }, [loadTeacherData]);
+  }, []);
+
+  useEffect(() => {
+    if (teacher) {
+      loadTeacherData(teacher.id);
+    }
+  }, [teacher, loadTeacherData]);
 
   const loadTeacherData = useCallback((teacherId) => {
     const allStudentMsgs = getStore(TEACHER_MESSAGES_KEY, DEFAULT_STUDENT_MESSAGES);
@@ -103,7 +111,7 @@ export function TeacherProvider({ children }) {
     const allChat = getStore(TEACHER_CHAT_KEY, DEFAULT_CHAT);
     setChatMessages(allChat.filter(c => c.teacherId === teacherId));
 
-    const allMyMsgs = getStore(TEACHER_MESSAGES_KEY, DEFAULT_MESSAGES);
+    const allMyMsgs = getStore(TEACHER_ANNOUNCEMENTS_KEY, DEFAULT_MESSAGES);
     setMyMessages(allMyMsgs.filter(m => m.teacherId === teacherId));
   }, []);
 
@@ -149,7 +157,7 @@ export function TeacherProvider({ children }) {
   // ---- Avisos del maestro ----
   function addMessage(text, priority = "normal") {
     if (!teacher) return;
-    const allMsgs = getStore(TEACHER_MESSAGES_KEY, DEFAULT_MESSAGES);
+    const allMsgs = getStore(TEACHER_ANNOUNCEMENTS_KEY, DEFAULT_MESSAGES);
     const newMsg = {
       id: Date.now().toString(),
       teacherId: teacher.id,
@@ -159,14 +167,14 @@ export function TeacherProvider({ children }) {
       createdAt: new Date().toISOString(),
     };
     allMsgs.unshift(newMsg);
-    setStore(TEACHER_MESSAGES_KEY, allMsgs);
+    setStore(TEACHER_ANNOUNCEMENTS_KEY, allMsgs);
     setMyMessages(prev => [newMsg, ...prev]);
     return newMsg;
   }
 
   function deleteMessage(id) {
-    const allMsgs = getStore(TEACHER_MESSAGES_KEY, DEFAULT_MESSAGES).filter(m => m.id !== id);
-    setStore(TEACHER_MESSAGES_KEY, allMsgs);
+    const allMsgs = getStore(TEACHER_ANNOUNCEMENTS_KEY, DEFAULT_MESSAGES).filter(m => m.id !== id);
+    setStore(TEACHER_ANNOUNCEMENTS_KEY, allMsgs);
     setMyMessages(prev => prev.filter(m => m.id !== id));
   }
 

@@ -4,6 +4,12 @@ import { demoPosts } from "../data/demoData";
 
 const SKIP_FIREBASE = !import.meta.env.VITE_FIREBASE_CONFIGURED;
 
+const POSTS_KEY = "vozdigital_posts";
+
+function getLocalPosts() {
+  try { return JSON.parse(localStorage.getItem(POSTS_KEY)) || []; } catch { return []; }
+}
+
 async function loadFirebasePosts(category) {
   if (SKIP_FIREBASE) return null;
   try {
@@ -49,7 +55,9 @@ export default function SectionPage({ category, title, icon }) {
 
   useEffect(() => {
     async function load() {
-      const demoFiltered = demoPosts.filter((p) => p.category === category);
+      const localPosts = getLocalPosts();
+      const allPosts = localPosts.length > 0 ? localPosts : demoPosts;
+      const demoFiltered = allPosts.filter((p) => p.category === category);
       setPosts(demoFiltered);
       setLoading(false);
 

@@ -7,8 +7,23 @@ import { addTeacherMessage, deleteTeacherMessage, getTeacherMessages } from "../
 
 const SKIP_FIREBASE = !import.meta.env.VITE_FIREBASE_CONFIGURED;
 
+const POSTS_KEY = "vozdigital_posts";
+
+function getLocalPosts() {
+  try { return JSON.parse(localStorage.getItem(POSTS_KEY)) || []; } catch { return []; }
+}
+function setLocalPosts(posts) {
+  localStorage.setItem(POSTS_KEY, JSON.stringify(posts));
+}
+
 async function addPost(data) {
-  if (SKIP_FIREBASE) return { id: Date.now().toString() };
+  if (SKIP_FIREBASE) {
+    const newPost = { id: Date.now().toString(), ...data, createdAt: new Date().toISOString(), date: new Date().toLocaleDateString("es-MX") };
+    const posts = getLocalPosts();
+    posts.unshift(newPost);
+    setLocalPosts(posts);
+    return { id: newPost.id };
+  }
   const { db } = await import("../config/firebase");
   const { collection, addDoc, serverTimestamp } = await import("firebase/firestore");
   const docRef = await addDoc(collection(db, "posts"), { ...data, createdAt: serverTimestamp() });
@@ -53,7 +68,11 @@ async function deleteFolio(id) {
 }
 
 async function deletePost(id) {
-  if (SKIP_FIREBASE) return true;
+  if (SKIP_FIREBASE) {
+    const posts = getLocalPosts().filter(p => p.id !== id);
+    setLocalPosts(posts);
+    return true;
+  }
   try {
     const { db } = await import("../config/firebase");
     const { doc, deleteDoc } = await import("firebase/firestore");
@@ -63,7 +82,10 @@ async function deletePost(id) {
 }
 
 async function loadPosts() {
-  if (SKIP_FIREBASE) return [];
+  if (SKIP_FIREBASE) {
+    const localPosts = getLocalPosts();
+    return localPosts.map(p => ({ ...p, date: p.date || "Hoy" }));
+  }
   try {
     const { db } = await import("../config/firebase");
     const { collection, query, orderBy, onSnapshot } = await import("firebase/firestore");

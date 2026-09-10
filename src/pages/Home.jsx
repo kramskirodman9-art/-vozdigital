@@ -6,6 +6,12 @@ import { demoPosts, demoBirthdays, demoAds, funFacts } from "../data/demoData";
 
 const SKIP_FIREBASE = !import.meta.env.VITE_FIREBASE_CONFIGURED;
 
+const POSTS_KEY = "vozdigital_posts";
+
+function getLocalPosts() {
+  try { return JSON.parse(localStorage.getItem(POSTS_KEY)) || []; } catch { return []; }
+}
+
 async function loadFirebasePosts() {
   if (SKIP_FIREBASE) return null;
   try {
@@ -56,7 +62,8 @@ export default function Home() {
 
   useEffect(() => {
     async function load() {
-      const posts = demoPosts;
+      const localPosts = getLocalPosts();
+      const posts = localPosts.length > 0 ? localPosts : demoPosts;
       setAllPosts(posts);
       setFeaturedPosts(posts.slice(0, 1));
       setLatestPosts(posts.slice(1, 5));

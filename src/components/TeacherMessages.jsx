@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const MESSAGES_KEY = "vozdigital_teacher_messages";
+const MESSAGES_KEY = "vozdigital_teacher_announcements";
 
 function getMessages() {
   try { return JSON.parse(localStorage.getItem(MESSAGES_KEY)) || []; } catch { return []; }

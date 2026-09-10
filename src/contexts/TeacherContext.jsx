@@ -80,24 +80,6 @@ export function TeacherProvider({ children }) {
   const [chatMessages, setChatMessages] = useState([]);
   const [myMessages, setMyMessages] = useState([]);
 
-  useEffect(() => {
-    const session = localStorage.getItem(TEACHER_SESSION);
-    if (session) {
-      try {
-        const t = JSON.parse(session);
-        setTeacher(t);
-        loadTeacherData(t.id);
-      } catch { /* empty */ }
-    }
-    setLoading(false);
-  }, []);
-
-  useEffect(() => {
-    if (teacher) {
-      loadTeacherData(teacher.id);
-    }
-  }, [teacher, loadTeacherData]);
-
   const loadTeacherData = useCallback((teacherId) => {
     const allStudentMsgs = getStore(TEACHER_MESSAGES_KEY, DEFAULT_STUDENT_MESSAGES);
     setStudentMessages(allStudentMsgs.filter(m => m.teacherId === teacherId));
@@ -114,6 +96,24 @@ export function TeacherProvider({ children }) {
     const allMyMsgs = getStore(TEACHER_ANNOUNCEMENTS_KEY, DEFAULT_MESSAGES);
     setMyMessages(allMyMsgs.filter(m => m.teacherId === teacherId));
   }, []);
+
+  useEffect(() => {
+    const session = localStorage.getItem(TEACHER_SESSION);
+    if (session) {
+      try {
+        const t = JSON.parse(session);
+        setTeacher(t);
+        loadTeacherData(t.id);
+      } catch { /* empty */ }
+    }
+    setLoading(false);
+  }, [loadTeacherData]);
+
+  useEffect(() => {
+    if (teacher) {
+      loadTeacherData(teacher.id);
+    }
+  }, [teacher, loadTeacherData]);
 
   function registerTeacher(name, password) {
     const teachers = getTeachers();

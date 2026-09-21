@@ -1,4 +1,4 @@
-# React + Vite
+# Voz Digital - Periódico Digital del Esc. Benemérito
 
 This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
 

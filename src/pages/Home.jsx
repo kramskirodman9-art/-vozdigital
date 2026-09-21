@@ -105,6 +105,18 @@ export default function Home() {
           </h1>
           <p className="hero-tagline">Tu voz, nuestra plataforma. El periódico del Esc. Benemérito.</p>
 
+          <div className="hero-photo-gallery">
+            <div className="gallery-main">
+              <img src="/images/alumno1.png" alt="Alumnos del Esc. Benemérito" />
+            </div>
+            <div className="gallery-grid">
+              <img src="/images/alumno2.png" alt="Alumno" />
+              <img src="/images/alumno3.png" alt="Alumno" />
+              <img src="/images/alumno4.png" alt="Alumno" />
+              <img src="/images/alumno5.png" alt="Alumno" />
+            </div>
+          </div>
+
           <div className="hero-cards">
             <div className="hero-card">
               <span className="hero-card-icon">🎙️</span>

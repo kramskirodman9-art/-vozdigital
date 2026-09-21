@@ -110,10 +110,11 @@ export default function Home() {
               <img src="/images/alumno6.png" alt="Alumnos del Esc. Benemérito" />
             </div>
             <div className="gallery-grid">
-              <img src="/images/alumno1.png" alt="Alumno" />
-              <img src="/images/alumno2.png" alt="Alumno" />
+              <img src="/images/alumno7.png" alt="Alumno" />
+              <img src="/images/alumno8.png" alt="Alumno" />
               <img src="/images/alumno3.png" alt="Alumno" />
               <img src="/images/alumno4.png" alt="Alumno" />
+              <img src="/images/alumno5.png" alt="Alumno" />
             </div>
           </div>
 

@@ -1,4 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+const VOTES_KEY = "vozdigital_contest_votes";
+const ENTRIES_KEY = "vozdigital_contest_entries";
 
 const defaultEntries = [
   { id: "c1", title: "Atardecer en la escuela", author: "Sofía Ramírez", grade: "3ro A", url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=400&fit=crop", votes: 24 },
@@ -6,9 +9,29 @@ const defaultEntries = [
   { id: "c3", title: "Naturaleza escolar", author: "Luna Fernández", grade: "3ro A", url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&h=400&fit=crop", votes: 31 },
 ];
 
+function getSavedVotes() {
+  try { return JSON.parse(localStorage.getItem(VOTES_KEY)) || {}; } catch { return {}; }
+}
+
+function getSavedEntries() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(ENTRIES_KEY));
+    if (saved && saved.length > 0) return saved;
+    return defaultEntries;
+  } catch { return defaultEntries; }
+}
+
 export default function PhotoContest() {
-  const [entries, setEntries] = useState(defaultEntries);
-  const [voted, setVoted] = useState({});
+  const [entries, setEntries] = useState(() => getSavedEntries());
+  const [voted, setVoted] = useState(() => getSavedVotes());
+
+  useEffect(() => {
+    localStorage.setItem(ENTRIES_KEY, JSON.stringify(entries));
+  }, [entries]);
+
+  useEffect(() => {
+    localStorage.setItem(VOTES_KEY, JSON.stringify(voted));
+  }, [voted]);
 
   function handleVote(id) {
     if (voted[id]) return;

@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { storage } from "../config/firebase";
+
+const SKIP_FIREBASE = !import.meta.env.VITE_FIREBASE_CONFIGURED;
 
 export default function ImageUploader({ onImageUploaded, currentImage }) {
   const [preview, setPreview] = useState(currentImage || null);
@@ -25,10 +25,15 @@ export default function ImageUploader({ onImageUploaded, currentImage }) {
 
     setError("");
     const reader = new FileReader();
-    reader.onload = (ev) => setPreview(ev.target.result);
+    reader.onload = (ev) => {
+      setPreview(ev.target.result);
+      onImageUploaded(ev.target.result);
+    };
     reader.readAsDataURL(file);
 
-    uploadImage(file);
+    if (!SKIP_FIREBASE) {
+      uploadImage(file);
+    }
   }
 
   async function uploadImage(file) {
@@ -36,6 +41,14 @@ export default function ImageUploader({ onImageUploaded, currentImage }) {
     setProgress(0);
 
     try {
+      const { ref, uploadBytesResumable, getDownloadURL } = await import("firebase/storage");
+      const { storage } = await import("../config/firebase");
+
+      if (!storage) {
+        setUploading(false);
+        return;
+      }
+
       const fileName = `posts/${Date.now()}_${file.name}`;
       const storageRef = ref(storage, fileName);
       const uploadTask = uploadBytesResumable(storageRef, file);
@@ -48,8 +61,7 @@ export default function ImageUploader({ onImageUploaded, currentImage }) {
           );
           setProgress(pct);
         },
-        (_err) => {
-          setError("Error al subir la imagen.");
+        () => {
           setUploading(false);
         },
         async () => {
@@ -59,7 +71,6 @@ export default function ImageUploader({ onImageUploaded, currentImage }) {
         }
       );
     } catch {
-      setError("Error al subir la imagen.");
       setUploading(false);
     }
   }

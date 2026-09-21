@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Footer() {
   const year = new Date().getFullYear();
 
@@ -19,13 +21,13 @@ export default function Footer() {
         <div className="footer-section">
           <h3>Secciones</h3>
           <ul>
-            <li>Noticias</li>
-            <li>Anécdotas</li>
-            <li>Chistes</li>
-            <li>Programas Especiales</li>
-            <li>Cumpleaños</li>
-            <li>Galería</li>
-            <li>Historial</li>
+            <li><Link to="/noticias">Noticias</Link></li>
+            <li><Link to="/anecdotas">Anécdotas</Link></li>
+            <li><Link to="/chistes">Chistes</Link></li>
+            <li><Link to="/programas">Programas Especiales</Link></li>
+            <li><Link to="/cumpleanos">Cumpleaños</Link></li>
+            <li><Link to="/galeria">Galería</Link></li>
+            <li><Link to="/historial">Historial</Link></li>
           </ul>
         </div>
 

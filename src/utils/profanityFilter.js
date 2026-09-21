@@ -5,12 +5,12 @@ const badWords = [
   "perra", "perro", "perras", "perros", "estupido", "estupida",
   "estupidos", "estupidas", "imbecil", "imbéciles", "idiota",
   "idiotas", "basura", "culero", "culera", "culos", "culo",
-  "mamada", "mamado", "mamada", "estúpido", "estúpida",
+  "mamada", "mamado", "estúpido", "estúpida",
   "joder", "jodido", "jodida", "carajo", "coño", "cojones",
-  "verga", "pendejo", "pendeja", "pinche", "chaparro", "chaparra",
+  "verga", "pinche", "chaparro", "chaparra",
   "naco", "naca", "nacos", "nacas", "ratero", "ratera",
-  "huevon", "huevona", "huevón", "huevón", "pelotudo", "pelotuda",
-  "boludo", "boluda", "sapo", "sapo", "maricón", "maricon",
+  "huevon", "huevona", "huevón", "pelotudo", "pelotuda",
+  "boludo", "boluda", "sapo", "maricón", "maricon",
   "marica", "loco", "loca", "locos", "locas", "tonto", "tonta",
   "tontos", "tontas", "feo", "fea", "feos", "feas"
 ];
@@ -34,14 +34,4 @@ export function containsBadWords(text) {
     }
   }
   return false;
-}
-
-export function sanitizeText(text) {
-  if (!text) return text;
-  let result = text;
-  for (const word of badWords) {
-    const regex = new RegExp(`\\b${word}\\b`, "gi");
-    result = result.replace(regex, "*".repeat(word.length));
-  }
-  return result;
 }

@@ -19,8 +19,8 @@ try {
   auth = getAuth(app);
   db = getFirestore(app);
   storage = getStorage(app);
-} catch (e) {
-  console.warn("Firebase no configurado:", e.message);
+} catch {
+  // Firebase not configured - app will use localStorage fallback
 }
 
 export { auth, db, storage };
